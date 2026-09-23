@@ -1,49 +1,78 @@
 #include <stdio.h>
 
-int main(){
-	int marks1, marks2 ,marks3;
-	float attendencepercent,Average;
-	
-	printf("Enter marks of Programming,Mathematics and AI:");
-	scanf("%d/n%d/n%d/n",&marks1,&marks2,marks3);
-	
-	printf("Enter the attendence percentage:");
-	scanf("%f",&attendencepercent);
-	
-	if marks1>=50
-	   printf("Passed");
-	else 
-	    printf("Not eligible");
-	    return 0;
-	if marks2>=50
-	   printf("Passed");
-	else 
-	    printf("Not eligible");
-	    return 0;
-	if marks3>=50
-	   printf("Passed");
-	else 
-	   printf("Not eligible");
-	   return 0;
-	if attendencepercent >= 75
-	   printf("Eligible");
-	    Average=(marks1+marks2+marks3)/3
-	else 
-	   printf("not eligible");
-	   return 0;
-	   
-    if Average>=80
-       printf("Excellent");
-    else if Average>=70
-       printf("Very Good");
-    else if Average>=60
-       printf("Good");
-    else if Average>=50 
-       printf("Satisfactory");
-    else 
-       printf("Poor");
+int main()
+{
+    int marks1, marks2, marks3;
+    float attendancePercent, average;
 
-       
-return 0;
-	
-	}
+    printf("Enter marks of Programming, Mathematics and AI: ");
+    scanf("%d%d%d", &marks1, &marks2, &marks3);
+
+    printf("Enter the attendance percentage: ");
+    scanf("%f", &attendancePercent);
+
+    if (marks1 >= 50)
+    {
+        printf("Programming: Passed\n");
+    }
+    else
+    {
+        printf("Programming: Not eligible\n");
+        return 0;
+    }
+
+    if (marks2 >= 50)
+    {
+        printf("Mathematics: Passed\n");
+    }
+    else
+    {
+        printf("Mathematics: Not eligible\n");
+        return 0;
+    }
+
+    if (marks3 >= 50)
+    {
+        printf("AI: Passed\n");
+    }
+    else
+    {
+        printf("AI: Not eligible\n");
+        return 0;
+    }
+
+    if (attendancePercent >= 75)
+    {
+        printf("Attendance: Eligible\n");
+
+        average = (marks1 + marks2 + marks3) / 3.0;
+    }
+    else
+    {
+        printf("Attendance: Not eligible\n");
+        return 0;
+    }
+
+    if (average >= 80)
+    {
+        printf("Excellent\n");
+    }
+    else if (average >= 70)
+    {
+        printf("Very Good\n");
+    }
+    else if (average >= 60)
+    {
+        printf("Good\n");
+    }
+    else if (average >= 50)
+    {
+        printf("Satisfactory\n");
+    }
+    else
+    {
+        printf("Poor\n");
+    }
+
+    return 0;
+}
