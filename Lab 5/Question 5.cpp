@@ -17,7 +17,7 @@ int main()
 
 		    printf("%s\n", (confidence < 50 || userType == 'U') ? "Access Denied : "Access Granted");
      }
-	 else if (confidence >= 50)
+	 else if (confidence >= 50 && confidence <= 79)
 	 {
 	     printf("Manual Verification Required\n");
 	  }
