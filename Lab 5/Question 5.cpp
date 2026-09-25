@@ -11,36 +11,19 @@ int main()
 	printf("Enter User Type (A=Authorized, U=Unauthorized):");
 	scanf( " %c",&userType);
 	
-	if (confidence>=80)
+	if (confidence >= 80)
 	{
-		printf("Face Recognized\n");
-		
-		if (userType=='A')
-		{
-			printf("Access granted\n");
-		}
-		else
-		{
-		    printf("Access Denied\n");
+	    printf("Face Recognized\n");
+
+		    printf("%s\n", (confidence < 50 || userType == 'U') ? "Access Denied : "Access Granted");
      }
- }
-	else 
-	{
-	    if(confidence>=50)
-	    {
-	    	if (confidence<=79)
-	    	{
-	    		printf("Manual Verification needed");	
-			}		
-       	    else
-		   {
-		   	printf("Face not recognized\n");
-			} 
-       	}
-       	else 
-       	{
-       		printf("Access denied\n");
-		   }
-		}
-	return 0;
+	 else if (confidence >= 50)
+	 {
+	     printf("Manual Verification Required\n");
+	  }
+     else
+    {
+	    printf("Access Denied\n");
+ } 
+		return 0;
 }
