@@ -15,7 +15,7 @@ int main()
 	{
 	    printf("Face Recognized\n");
 
-		    printf("%s\n", (confidence < 50 || userType == 'U') ? "Access Denied : "Access Granted");
+		    printf("%s\n", (userType == 'A') ? "Access Granted" : "Access Denied");
      }
 	 else if (confidence >= 50 && confidence <= 79)
 	 {
