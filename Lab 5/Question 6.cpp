@@ -17,6 +17,7 @@ int main()
   	       scanf("%d",&algorithm);
   	       
   	    switch (algorithm)
+  	    {
   	    	case 1:
   	    		printf("Logistic Regression");
   	    		break;
