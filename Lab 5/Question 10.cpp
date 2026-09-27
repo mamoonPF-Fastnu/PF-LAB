@@ -147,11 +147,7 @@ else
    
 
    
-    if (accuracy >= 80 &&
-        confidence >= 75 &&
-        datasetSize >= 1000 &&
-        modelStatus == 1 &&
-        (permission & 8))
+    if (accuracy >= 80 &&confidence >= 75 &&datasetSize >= 1000 &&modelStatus == 1 && (permission & 8))
     {
         printf("Deployment Ready: YES\n");
     }
@@ -160,12 +156,10 @@ else
         printf("Deployment Ready: NO\n");
     }
 
-    /* Ternary operator */
-    printf("Decision: %s\n",
-           (accuracy >= 80 && confidence >= 75) ? "Meets Quality Requirements"
-                                                : "Does Not Meet Quality Requirements");
+    
+    printf("Decision: %s\n",(accuracy >= 80 && confidence >= 75) ? "Meets Quality Requirements"   : "Does Not Meet Quality Requirements");
 
-    /* sizeof() */
+  
     printf("\nMemory Information:\n");
     printf("Size of accuracy variable: %zu bytes\n", sizeof(accuracy));
     printf("Size of confidence variable: %zu bytes\n", sizeof(confidence));
