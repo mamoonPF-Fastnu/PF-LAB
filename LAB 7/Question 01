@@ -1,1 +1,52 @@
+#include <stdio.h>
 
+#define STUDENTS 3
+#define SUBJECTS 3
+#define NAME_LEN 50
+
+void clear_buffer(void)
+{
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        ;
+}
+
+int main(void)
+{
+    char student_names[STUDENTS][NAME_LEN];
+    int marks[STUDENTS][SUBJECTS];
+    int i, j;
+
+    printf("=== Student Registration ===\n");
+
+    for (i = 0; i < STUDENTS; i++) {
+        printf("\nStudent %d full name: ", i + 1);
+
+       
+        scanf("%49[^\n]", student_names[i]);
+        clear_buffer();                
+
+        
+        for (j = 0; j < SUBJECTS; j++) {
+            printf("  Enter marks for subject %d: ", j + 1);
+            scanf("%d", &marks[i][j]);
+            clear_buffer();            
+        }
+    }
+
+    printf("\n==============================================\n");
+    printf("%-5s %-30s %s\n", "No.", "Full Name", "Average");
+    printf("==============================================\n");
+
+    for (i = 0; i < STUDENTS; i++) {
+        int sum = 0;
+        for (j = 0; j < SUBJECTS; j++)
+            sum += marks[i][j];
+
+        printf("%-5d %-30s %.2f\n", i + 1, student_names[i],
+               (float)sum / SUBJECTS);
+    }
+    printf("==============================================\n");
+
+    return 0;
+}
