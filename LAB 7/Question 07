@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+#define DAYS    3
+#define SENSORS 4
+
+int main(void)
+{
+    float sensor_data[DAYS][SENSORS] = {0};
+    int r, c, col;
+
+    printf("Enter temperature readings:\n");
+    for (r = 0; r < DAYS; r++)
+        for (c = 0; c < SENSORS; c++) {
+            printf("  Day %d, Sensor %d: ", r + 1, c);
+            scanf("%f", &sensor_data[r][c]);
+        }
+
+    do {
+        printf("\nColumn index of the defective sensor (0 to 3): ");
+        scanf("%d", &col);
+    } while (col < 0 || col >= SENSORS);
+
+    /* Left-shift every column after the faulty one */
+    for (r = 0; r < DAYS; r++)
+        for (c = col; c < SENSORS - 1; c++)
+            sensor_data[r][c] = sensor_data[r][c + 1];
+
+    printf("\nUpdated 3x3 matrix (sensor %d removed):\n", col);
+    for (r = 0; r < DAYS; r++) {
+        printf("Day %d |", r + 1);
+        for (c = 0; c < SENSORS - 1; c++)
+            printf("%8.2f", sensor_data[r][c]);
+        printf("\n");
+    }
+    return 0;
+}

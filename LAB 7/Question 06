@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+#define MAXR 4
+#define COLS 3
+
+int main(void)
+{
+    int shifts[MAXR][COLS] = {0};
+    int i, j, idx;
+
+    printf("Enter the initial 3x3 production data (3 workstations x 3 shifts):\n");
+    for (i = 0; i < 3; i++)
+        for (j = 0; j < COLS; j++) {
+            printf("  Workstation %d, Shift %d: ", i, j);
+            scanf("%d", &shifts[i][j]);
+        }
+
+    do {
+        printf("\nTarget row index for the emergency shift (0 to 3): ");
+        scanf("%d", &idx);
+    } while (idx < 0 || idx > 3);
+
+    printf("Enter the 3 new production values:\n");
+    int newrow[COLS];
+    for (j = 0; j < COLS; j++) {
+        printf("  Value %d: ", j + 1);
+        scanf("%d", &newrow[j]);
+    }
+
+    
+    for (i = MAXR - 1; i > idx; i--)
+        for (j = 0; j < COLS; j++)
+            shifts[i][j] = shifts[i - 1][j];
+
+    for (j = 0; j < COLS; j++)
+        shifts[idx][j] = newrow[j];
+
+    printf("\nUpdated 4x3 production matrix:\n");
+    printf("            Shift1 Shift2 Shift3\n");
+    for (i = 0; i < MAXR; i++) {
+        printf("Row %d   |", i);
+        for (j = 0; j < COLS; j++)
+            printf("%7d", shifts[i][j]);
+        printf("\n");
+    }
+    return 0;
+}

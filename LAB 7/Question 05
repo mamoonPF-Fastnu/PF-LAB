@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <ctype.h>
+
+#define SENT 3
+#define LEN  100
+
+int main(void)
+{
+    char sentences[SENT][LEN];
+    int i, j;
+
+    printf("Enter a paragraph of 3 sentences separated by semicolons (;):\n");
+
+    for (i = 0; i < SENT; i++) {
+        sentences[i][0] = '\0';
+        
+        scanf(" %99[^;]%*c", sentences[i]);
+
+        
+        for (j = 0; sentences[i][j] != '\0'; j++)
+            if (sentences[i][j] == '\n')
+                sentences[i][j] = '\0';
+    }
+
+    printf("\n%-5s %-45s %s\n", "No.", "Sentence", "Vowels");
+    printf("-------------------------------------------------------------\n");
+
+    for (i = 0; i < SENT; i++) {
+        int vowels = 0;
+        for (j = 0; sentences[i][j] != '\0'; j++) {
+            switch (tolower((unsigned char)sentences[i][j])) {
+                case 'a': case 'e': case 'i': case 'o': case 'u':
+                    vowels++;
+            }
+        }
+        printf("%-5d %-45s %d\n", i + 1, sentences[i], vowels);
+    }
+    return 0;
+}
