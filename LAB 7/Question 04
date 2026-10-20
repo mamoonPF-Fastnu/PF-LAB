@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+#define ROWS 3
+#define LEN  100
+
+void clear_buffer(void)
+{
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        ;
+}
+
+int main(void)
+{
+    char word_grid[ROWS][LEN];
+    char longest[LEN] = "";
+    int max_len = 0, max_i = -1, max_j = -1;
+    int i, k, m;
+
+    printf("=== Word Grid (3 words per row, separated by spaces) ===\n");
+    for (i = 0; i < ROWS; i++) {
+        word_grid[i][0] = '\0';
+        printf("Enter row %d: ", i);
+        scanf("%99[^\n]", word_grid[i]);
+        clear_buffer();
+    }
+
+    for (i = 0; i < ROWS; i++) {
+        int col = 0;                            
+        k = 0;
+        while (word_grid[i][k] != '\0') {
+            while (word_grid[i][k] == ' ')     
+                k++;
+            if (word_grid[i][k] == '\0')
+                break;
+
+            int start = k;
+            while (word_grid[i][k] != '\0' && word_grid[i][k] != ' ')
+                k++;                           
+
+            int len = k - start;
+            if (len > max_len) {                
+                max_len = len;
+                max_i = i;
+                max_j = col;
+                for (m = 0; m < len; m++)
+                    longest[m] = word_grid[i][start + m];
+                longest[len] = '\0';
+            }
+            col++;
+        }
+    }
+
+    if (max_len == 0) {
+        printf("\nNo words were entered.\n");
+        return 0;
+    }
+    printf("\nLongest word : %s\n", longest);
+    printf("Length       : %d\n", max_len);
+    printf("Position     : Row %d, Column %d\n", max_i, max_j);
+    return 0;
+}

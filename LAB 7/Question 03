@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+#define MSGS 3
+#define LEN  100
+
+//Remove next line and End of File
+void clear_buffer(void)
+{
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        ;
+}
+
+int main(void)
+{
+    char secret_messages[MSGS][LEN];
+    int i, j;
+
+    printf("=== Secure Messaging Portal (A-Z and spaces only) ===\n");
+
+    for (i = 0; i < MSGS; i++) {
+        secret_messages[i][0] = '\0';          
+        printf("Enter message %d: ", i + 1);
+
+        /* Validation scanset: reading stops at the first character that is
+           not an uppercase letter or a space (digit, punctuation, lowercase). */
+        scanf("%99[A-Z ]", secret_messages[i]);
+        clear_buffer();                       
+    }
+
+    printf("\n%-5s %-40s %-8s %s\n", "No.", "Filtered Message", "Spaces", "Words");
+    printf("-------------------------------------------------------------\n");
+
+    for (i = 0; i < MSGS; i++) {
+        int spaces = 0, words = 0, in_word = 0;
+
+        for (j = 0; secret_messages[i][j] != '\0'; j++) {
+            if (secret_messages[i][j] == ' ') {
+                spaces++;
+                in_word = 0;
+            } else if (!in_word) {           
+                words++;
+                in_word = 1;
+            }
+        }
+        printf("%-5d %-40s %-8d %d\n", i + 1, secret_messages[i], spaces, words);
+    }
+    return 0;
+}
