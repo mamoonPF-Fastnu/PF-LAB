@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+#define ENTRIES 3
+#define FIELDS  3
+#define LEN     30
+
+void clear_buffer(void)
+{
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        ;
+}
+
+int main(void)
+{
+    
+    char logs[FIELDS][LEN];
+    int e, i, j;
+    int uppercase_count = 0;
+
+    printf("=== CSV Log Parser ===\n");
+    printf("Format: username,status,timestamp   (e.g. Admin_User,Access Granted,10:45AM)\n");
+
+    for (e = 0; e < ENTRIES; e++) {
+        printf("\nEnter log entry %d: ", e + 1);
+
+        
+        if (scanf(" %29[^,],%29[^,],%29[^\n]", logs[0], logs[1], logs[2]) != 3) {
+            printf("Invalid entry: expected 3 comma-separated fields.\n");
+            return 1;
+        }
+        clear_buffer();
+
+        printf("  Username  : %s\n", logs[0]);
+        printf("  Status    : %s\n", logs[1]);
+        printf("  Timestamp : %s\n", logs[2]);
+
+        
+        for (i = 0; i < FIELDS; i++) {
+            for (j = 0; logs[i][j] != '\0'; j++) {
+                if (logs[i][j] >= 'A' && logs[i][j] <= 'Z')
+                    uppercase_count++;
+            }
+        }
+    }
+
+    printf("\nTotal uppercase letters across all log entries: %d\n", uppercase_count);
+    return 0;
+}
