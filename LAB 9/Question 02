@@ -1,0 +1,47 @@
+#include <stdio.h>
+void withdraw(float *balance, float withdrawAmount) {
+    if (withdrawAmount > *balance) {
+        printf("Transaction Declined: Insufficient Balance.\n");
+    } else {
+        *balance -= withdrawAmount;
+        printf("Withdrawal successful. New balance: %.2f\n", *balance);
+    }
+}
+void deposit(float *balance, float depositAmount) {
+    if (depositAmount <= 0) {
+        printf("Transaction Declined: Deposit amount must be positive.\n");
+    } else {    
+    *balance += depositAmount;
+    printf("Deposit successful. New balance: %.2f\n", *balance);
+}
+
+}
+int main() {
+    float balance ; 
+    float withdrawAmount, depositAmount;
+    int choice;
+
+    printf("Enter Balance: %f\n");
+    scanf("%f", &balance);
+
+    printf("Current Balance: %.2f\n", balance);
+    printf("\n1.Debit(withdraw)\n2.Credit(deposit)\n");
+
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Enter amount to withdraw: ");
+        scanf("%f", &withdrawAmount);
+        withdraw(&balance, withdrawAmount);
+    } else if (choice == 2) {
+        printf("Enter amount to deposit: ");
+        scanf("%f", &depositAmount);
+        deposit(&balance, depositAmount);
+    } else {
+        printf("Invalid choice.\n");
+    }
+
+    printf("Final Balance: %.2f\n", balance);
+    return 0;
+}
