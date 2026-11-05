@@ -1,1 +1,72 @@
 
+#include <stdio.h>
+
+
+void printSensorData(void *ptr, char type)
+{
+    if (type == 'f')
+    {
+        printf("Temperature: %.2f Celsius\n", *(float *)ptr);
+    }
+
+    else if (type == 'i')
+    {
+        int value = *(int *)ptr;
+
+        if (value == 1)
+        {
+            printf("Motion Detected\n");
+        }
+        else if (value == 0)
+        {
+            printf("No Motion\n");
+        }
+        else
+        {
+            printf("Invalid Motion Value\n");
+        }
+    }
+
+    else if (type == 'c')
+    {
+        char value = *(char *)ptr;
+
+        if (value == 'O')
+        {
+            printf("Door Open\n");
+        }
+        else if (value == 'C')
+        {
+            printf("Door Closed\n");
+        }
+        else
+        {
+            printf("Invalid Door Status\n");
+        }
+    }
+
+    else
+    {
+        printf("Invalid Data Type\n");
+    }
+}
+
+int main()
+{
+    // Sensor variables
+    float temperature = 25.5;
+    int motionStatus = 1;
+    char doorStatus = 'O';
+
+    printf("===== SMART HOME SENSOR DATA =====\n");
+
+    // Pass addresses and data type characters
+    printSensorData(&temperature, 'f');
+
+    printSensorData(&motionStatus, 'i');
+
+    printSensorData(&doorStatus, 'c');
+
+    return 0;
+}
+
