@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Maria/Downloads/FAST ASSIGNMENTS/PF Lab/Lab-3/Lab_3-Assignments/LAB_3-Assignment",
-      "program": "c:/Users/Maria/Downloads/FAST ASSIGNMENTS/PF Lab/Lab-3/Lab_3-Assignments/LAB_3-Assignment/build/Debug/outDebug",
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
