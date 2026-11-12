@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+    int email[100];
+    int domain[50];
+    int *ptr;
+
+    printf("Enter Email Address: ");
+    scanf("%s", email);
+
+    ptr = strchr(email, '@');
+    if (ptr == NULL) {
+        printf("Invalid Email Format\n");
+    } else {
+        strcpy(domain, ptr + 1);
+        printf("Domain: %s\n", domain);
+    }
+    return 0;
+}   
