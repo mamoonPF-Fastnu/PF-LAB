@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+struct Item {
+    int id;
+    char name[3];
+    int quantity;
+    float unitPrice;
+};
+
+int main(){
+    struct Item warehouse[4];
+    float totalInverntoryValue=0.0;
+    int searchId;
+    int found=0;
+
+    //accepting 5 items from user 
+    for(int i=0;i<5;i++){
+      printf("Enter Detail of Item %d\n",i+1);
+      
+      int unique;
+      do{
+        unique=1;
+      printf("Item ID:");
+      scanf("%d",&warehouse[i].id);
+      for(int j=0;j<i;j++){
+       if(warehouse[i].id==warehouse[j].id){
+        printf("Item with Id %d already eists\n",warehouse[i].id);
+        unique=0;
+        break;
+       }
+    }
+      }while(!unique);// item id unique nature validation
+      
+      printf("Item Name:");
+      scanf(" %[^\n]",&warehouse[i].name);
+
+      printf("Quantity:");
+      scanf("%d",&warehouse[i].quantity);
+
+      printf("Unit Price($):");
+      scanf("%f",&warehouse[i].unitPrice);
+
+      totalInverntoryValue+=(warehouse[i].quantity*warehouse[i].unitPrice);
+
+    }
+
+    //display
+    printf("Total Warehouse Value :%.2f\n",totalInverntoryValue);
+    
+    //search
+    printf("Enter item Id to search for :");
+    scanf("%d",&searchId);
+
+    printf("SEARCH RESULT\n");
+
+    for(int i=0;i<5;i++){
+        if(warehouse[i].id==searchId){
+            float itemTotalValue=warehouse[i].quantity*warehouse[i].unitPrice;
+            printf("Item Id:\n", warehouse[i].id);
+            printf("Item Name:\n", warehouse[i].name);
+            printf("Quantity:\n", warehouse[i].quantity);
+            printf("Unit Price:\n", warehouse[i].unitPrice);
+            printf("Item Subtotal:\n",itemTotalValue);
+            found=1;
+            break;
+        }
+    }
+    if(!found)
+    {
+        printf("Item with ID %d was not found in the warehouse\n",searchId);
+
+    }
+    return 0;
+}
