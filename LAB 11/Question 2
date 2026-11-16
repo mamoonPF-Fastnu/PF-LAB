@@ -25,7 +25,7 @@ int main(){
     struct Product product2={102,"Ergonomic Keyboard","Electronic",120.00f,20};
     
     displayProductDetail(product1);
-    displayProductDetail( product2);
+    displayProductDetail(product2);
 
     return 0;
 
