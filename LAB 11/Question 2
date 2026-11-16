@@ -16,7 +16,7 @@ void displayProductDetail(struct Product p){
     printf("Catergory:%s\n",p.category);
     printf("Original Price:$%.2f\n",p.price);
     printf("Stock Quantity:$%d\n",p.stockQuantity);
-    printf("Discount (5%%):$-.2f\n",discount);
+    printf("Discount (5%%):$-%.2f\n",discount);
     printf("Final Price:%d\n",finalPrice);
 
 }
@@ -28,5 +28,5 @@ int main(){
     displayProductDetail( product2);
 
     return 0;
-    
+
 }
