@@ -15,14 +15,14 @@ void displayProductDetail(struct Product p){
     printf("Product Name:%s\n",p.name);
     printf("Catergory:%s\n",p.category);
     printf("Original Price:$%.2f\n",p.price);
-    printf("Stock Quantity:$%d\n",p.stockQuantity);
+    printf("Stock Quantity: %d\n",p.stockQuantity);
     printf("Discount (5%%):$-%.2f\n",discount);
-    printf("Final Price:%d\n",finalPrice);
+    printf("Final Price:%.2f\n",finalPrice);
 
 }
 int main(){
-    struct Product product1={101,"Wireless Headphones","Electronics",89.99f,45};
-    struct Product product2={102,"Ergonomic Keyboard","Electronic",120.00f,20};
+    struct Product product1={101,"Wireless Headphones","Electronics",89.99,45};
+    struct Product product2={102,"Ergonomic Keyboard","Electronic",120.00,20};
     
     displayProductDetail(product1);
     displayProductDetail(product2);
