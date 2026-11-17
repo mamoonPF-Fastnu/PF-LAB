@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+#define Toll_Rate 50
+
+void processVehicle(const char VehicleType[]){
+    static int totalVehicle=0;
+    static int totalReveneu=0;
+
+    if (strcmp(VehicleType,"Report")==0){
+        printf("Highway Tool\n");
+        printf("Fixed Toll rate:%d PKR\n",Toll_Rate);
+        printf("Total Vehicles processed; %d\n",totalVehicle);
+        printf("Total Toll Reveneu : %d\n",totalReveneu);
+        return;
+    
+    }
+    totalVehicle++;
+    totalReveneu+=Toll_Rate;
+
+    printf("[TOLL BOOTH]: Vehicle #-2d (%-10s)processed  Fee: %d PKR \n",totalVehicle,VehicleType,Toll_Rate);
+
+}
+
+int main (){
+    printf("Automated Toll System \n");
+    processVehicle("Car");
+    processVehicle("Truck");
+    processVehicle("Bus");
+    processVehicle("MotorBike");
+    processVehicle("SUV");
+    processVehicle("Van");
+
+    processVehicle("Report");
+    return 0;
+
+}
