@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+struct hospitalRecord{
+    int recordId;
+    int wardNumber;
+struct patientInfo{
+    int patientId;
+    char name[3];
+    int age;
+}patient;
+};
+
+int main(){
+    struct hospitalRecord record={5001,12,{1009,"John Doe",24}};
+    struct hospitalRecord *ptr;
+    ptr=&record;
+    
+    printf("Emergency Hopitalization Rcord\n");
+    printf("Record ID:%d\n",ptr->recordId);
+    printf("Ward number:%d\n",ptr->wardNumber);
+
+    printf("Patient Information\n");
+    printf("Patient ID:%d",ptr->patient.patientId);
+    printf("Name : %s\n",ptr->patient.name);
+    printf("Age:%d years \n",ptr->patient.age);
+    return 0;
+
+}
