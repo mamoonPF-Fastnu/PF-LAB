@@ -1,2 +1,104 @@
 #include <stdio.h>
- 
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_BUFFER_SIZE 256
+int main(){
+int capacity=2;
+int count=0;
+
+char **feedback=(char **)malloc(capacity*sizeof(char*));
+
+int numEnteries;
+printf("Enter the number of feedback enteries to input:");
+
+for(int i=0;i<numEnteries;i++){
+    if (count>=capacity){
+        capacity*=2;
+        char **temp=(char **)realloc(feedback,capacity*sizeof(char*));
+        if(temp==NULL){
+            printf("Error Memory Reallocation failed\n");
+            
+            for( int k=0;k<count;k++){
+                free(feedback[k]);
+            }
+            free(feedback);
+            return 1;
+        }
+        feedback=temp;
+}
+char buffer[MAX_BUFFER_SIZE];
+printf("Enter the feedback entry #%d ",i+1);
+if(fgets(buffer,sizeof(buffer),stdin) != NULL){
+    buffer[strcspn(buffer,"\n")] = '\0';
+
+    size_t len =strlen(buffer);
+    feedback[count]=(char *)malloc((len+1)*sizeof(char));
+    if(feedback[count]==NULL){
+        printf("Memory allocation failed for string #%d!\n",i+1);
+        for(int k=0;k<count;k++){
+            free(feedback[k]);
+        }
+        free(feedback);
+        return 1;
+    }
+    strcpy(feedback[count],buffer);
+    count++;
+}
+}
+
+int totalCharacter =0;
+for(int i=0;i<count;i++){
+    char *p=feedback[i];
+    while(*p != '\0'){
+        totalCharacter++;
+        p++;
+    }
+}
+char **currentPtr=feedback;
+char **endptr= feedback+count;
+char *longestFeedback = NULL;
+size_t maxlenght=0;
+
+for(;currentPtr<endptr;currentPtr++){
+    char *charPtr = *currentPtr;
+    size_t currentLen =0;
+    while(*charPtr != '\0'){
+        currentLen++;
+        charPtr++;
+    }
+
+    if(currentLen>maxlenght){
+        maxlenght=currentLen;
+        longestFeedback=*currentPtr;
+    }
+
+
+printf("\n Student Feedback Report Analysis");
+printf("Total Feedback Entries processed : %d\n",count);
+printf("Total Character across Entries : %d\n\n",totalCharacter);
+
+printf("All Feedback Entries\n");
+for(int i=0;i<count;i++){
+    printf("[d] %s\n",i+1,feedback[i]);
+}
+
+printf("Longest Feedback Entry\n");
+if(longestFeedback != NULL){
+    printf("\%s\"(Length : %zu characters)\n",longestFeedback,maxlenght);
+} else {
+    printf("No feedback record available.\n");
+}
+printf("------------------------\n");
+
+for(int i=0;i<count;i++){
+    free(feedback[i]);
+    feedback[i]=NULL;
+}
+free(feedback);
+feedback=NULL;
+
+printf("\n[Success]: All heap memory successfully deallocated\n");
+return 0;
+
+}
