@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_BUFFER_SIZE 100
+
+int containsDigit(char *str){
+    while (*str != '\0'){
+        if(isdigit((unsigned char)*str)) {
+            return 1;
+        }
+        str++;
+    }
+    return 0;
+}
+int main(){
+    int N;
+    
+    printf("Enter the number of usernames:");
+
+    char **usernames=(char **)malloc(N*sizeof(char));
+
+    printf("Enter %d username: \n",N);
+    for(int i=0;i<N;i++){
+        char buffer[MAX_BUFFER_SIZE];
+        printf("Username #%d:",i+1);
+        scanf("%99s",buffer);
+
+        size_t len=strlen(buffer);
+        usernames[i]=(char *)malloc((len+1)*sizeof(char));
+        if(usernames[i]==NULL){
+            printf("Memory Allocations failed for username #%d!\n",i+1);
+            for(int k=0;k<i;k++){
+                free(usernames[k]);
+            }
+            free(usernames);
+            return 1;
+        }
+    strcpy(usernames[i], buffer);
+}
+
+int validCount=0;
+printf("Filtering Usernames\n");
+for(int i=0;i<N;i++){
+    if(containsDigit(usernames[i])){ 
+        printf(" [Removed]: \"%s\ contains digits\n",usernames[i]);
+        free(usernames[i]);
+        usernames[i]=NULL;
+    }else {
+        usernames[validCount]=usernames[i];
+        validCount++;
+    }
+}
+
+printf("Valid Alphabatic Username:\n");
+if (validCount==0){
+    printf("No valid alphabetic usernaems remianing\n");
+}
+else {
+    for(int i=0;i<validCount;i++){
+        printf("%d.%s\n",i+1,usernames[i]);
+    }
+}
+
+for (int i=0;i<validCount;i++){
+    free(usernames[i]);
+    usernames[i]=NULL;
+}
+free(usernames);
+usernames=NULL;
+
+printf("\n[Success]:All dyanmic memory freed\n");
+return 0;
+
+}
