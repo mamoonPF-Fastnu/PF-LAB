@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+int getCategory(char c) {
+    if (isupper((unsigned char)c))
+        return 1;
+    if (islower((unsigned char)c))
+        return 2;
+    if (isdigit((unsigned char)c))
+        return 3;
+
+    return 4;
+}
+
+double getSimilarity(const char *pat, const char *str) {
+    size_t l1 = strlen(pat);
+    size_t l2 = strlen(str);
+
+    size_t max = (l1 > l2) ? l1 : l2;
+    size_t min = (l1 < l2) ? l1 : l2;
+
+    int matches = 0;
+    for (size_t i = 0; i < min; i++) {
+        if (getCategory(pat[i]) == getCategory(str[i])) {
+            matches++;
+        }
+    }
+    if (max == 0)
+        return 0.0;
+
+    return ((double)matches / max) * 100.0;
+}
+
+int main() {
+    char buf[256];
+    printf("Pattern: ");
+    scanf("%255s", buf);
+
+    char *pattern = malloc(strlen(buf) + 1);
+
+    if (pattern == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    strcpy(pattern, buf);
+    int n;
+
+    printf("Number of participants: ");
+    scanf("%d", &n);
+    if (n <= 0) {
+        printf("Invalid number of participants!\n");
+        free(pattern);
+        return 1;
+    }
+
+    char **passwords = malloc(n * sizeof(char *));
+    double *scores = malloc(n * sizeof(double));
+
+    if (passwords == NULL || scores == NULL) {
+        printf("Memory allocation failed!\n");
+        free(pattern);
+        free(passwords);
+        free(scores);
+        return 1;
+    }
+
+    int best = 0;
+    for (int i = 0; i < n; i++) {
+        printf("P#%d password: ", i + 1);
+        scanf("%255s", buf);
+        passwords[i] = malloc(strlen(buf) + 1);
+
+        if (passwords[i] == NULL) {
+            printf("Memory allocation failed!\n");
+
+            for (int j = 0; j < i; j++) {
+                free(passwords[j]);
+            }
+            free(passwords);
+            free(scores);
+            free(pattern);
+
+            return 1;
+        }
+
+        strcpy(passwords[i], buf);
+
+        scores[i] = getSimilarity(pattern, passwords[i]);
+
+        if (scores[i] > scores[best]) {
+            best = i;
+        }
+    }
+    printf("\nRESULTS\n");
+
+    for (int i = 0; i < n; i++) {
+        printf("P#%d (%s): %.2f%%\n",
+               i + 1, passwords[i], scores[i]);
+    }
+
+    printf("Best Match: P#%d (%s) with %.2f%%\n",
+           best + 1, passwords[best], scores[best]);
+
+    for (int i = 0; i < n; i++) {
+        free(passwords[i]);
+    }
+
+    free(passwords);
+    free(scores);
+    free(pattern);
+
+    return 0;
+}
