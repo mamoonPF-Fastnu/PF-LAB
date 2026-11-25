@@ -1,2 +1,75 @@
 #include <stdio.h>
-#in
+#include <stdlib.h>
+
+int main(){
+    int numCategories;
+
+    printf("Enter the number of movie cateogories:");
+
+    int *rating=(int *)malloc(numCategories*sizeof(int));
+    printf("Enter Rating counts for each category\n");
+    for(int i=0;i,numCategories;i++){
+        printf("Cateogry %d Rating Count:",i+1);
+        while(scanf("%d",&rating[i]) != 1 || rating[i]<0){
+            printf("Invalid input please enter positve for category %d: ",i+1);
+            while(getchar() != '\n');
+        }
+    }
+    
+    int totalRating=0;
+    int highestIndex=0;
+
+    for(int i=0;i<numCategories;i++){
+        totalRating += rating[i];
+        if(rating[i]>rating[highestIndex]){
+            highestIndex=i;
+        }
+    }
+    double averageRating=(double)totalRating/numCategories;
+    printf("Total Movie Categories: %d\n",numCategories);
+    printf("Total Ranking across all : %d\n",totalRating);
+    printf("Average Ratings per category : %.2f\n",averageRating);
+    printf("Highest Rated Category : Category %d(%d rating)\n",highestIndex+1,rating[highestIndex]);
+
+    char choice;
+    printf("Do you want to update count (y/n):");
+    scanf(" %c",&choice);
+
+    if(choice=='y' || choice=='Y'){
+        int updateIndex;
+        printf("Enter cateogry to update (1 to %d)",numCategories);
+        scanf("%d",&updateIndex );
+        
+        if(updateIndex >=1 && updateIndex <= numCategories){
+            int newRating;
+            printf("Enter new rating count for category %d",updateIndex);
+            scanf("%d",&newRating);
+
+            rating[updateIndex-1]=newRating;
+            printf("\n [Success]: category %d rating updated to %d\n",updateIndex,newRating);
+
+            totalRating=0;
+            highestIndex=0;
+            for(int i=0;i<numCategories;i++){
+                totalRating +=rating[i];
+                if(rating[i]>rating[highestIndex]){
+                    highestIndex=i;
+                }
+            }
+            averageRating= (double)totalRating/numCategories;
+            
+            printf(" UPDATED MOVIE RATINGS REPORT \n");
+            printf("Total Ratings across all : %d\n", totalRating);
+            printf("Average Ratings Per Category: %.2f\\n", averageRating); 
+            printf("Highest Rated Category : Category #%d (%d rating)\\n", highestIndex + 1, rating[highestIndex]); 
+
+    
+        }else { 
+            printf("Error: Category #%d does not exist.\\n",updateIndex);
+        }
+    }
+    free(rating);
+    rating=NULL;
+    printf("\n[Success]: Dynamic memory successfully deallocated\n");
+    return 0;    
+    }
